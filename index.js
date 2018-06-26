@@ -62,4 +62,20 @@ app.get('/cadastrocliente', (req, res) => {
     });
 });
 
+
+app.get('/cadastrocliente/:cpf', (req, res) => {
+    let query = {
+        _cpf: ObjectID(req.params.cpf)
+    };
+
+    req.db.collection('loja').findOne( query, (err, data) => {
+        if(err){
+            res.status(500).send();
+            return;
+        }
+        res.send(data);
+    });
+});
+
+
 app.listen(process.env.PORT || 3000, () => console.log('Aplicação iniciada'));
